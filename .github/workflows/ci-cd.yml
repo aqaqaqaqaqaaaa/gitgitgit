@@ -45,26 +45,23 @@ jobs:
     needs: test
     if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master'
     
-    permissions:
-      pages: write
-      id-token: write
-      
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-      
     steps:
       - name: 检出代码
         uses: actions/checkout@v4
         
-      - name: 配置 Pages
-        uses: actions/configure-pages@v5
+      - name: 安装 sshpass
+        run: sudo apt-get update && sudo apt-get install -y sshpass
         
-      - name: 上传 Pages 工件
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: ./
+      - name: 部署到云服务器
+        env:
+          SSH_PASSWORD: ${{ secrets.SSH_PASSWORD }}
+          REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
+          REMOTE_USER: ${{ secrets.REMOTE_USER }}
+          REMOTE_PORT: ${{ secrets.REMOTE_PORT }}
+          REMOTE_TARGET: ${{ secrets.REMOTE_TARGET }}
+        run: |
+          # 创建部署目录
+          sshpass -p "$SSH_PASSWORD" ssh -o StrictHostKeyChecking=no -p "$REMOTE_PORT" "$REMOTE_USER@$REMOTE_HOST" "mkdir -p $REMOTE_TARGET"
           
-      - name: 部署到 GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+          # 传输文件
+          sshpass -p "$SSH_PASSWORD" scp -o StrictHostKeyChecking=no -P "$REMOTE_PORT" -r ./* "$REMOTE_USER@$REMOTE_HOST:$REMOTE_TARGET/"

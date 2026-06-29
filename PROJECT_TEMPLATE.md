@@ -6,7 +6,7 @@
 - ✅ Git & GitHub 版本控制
 - ✅ Playwright E2E 自动化测试
 - ✅ 单元测试
-- ✅ GitHub Pages 自动部署
+- ✅ 云服务器自动部署
 - ✅ GitHub Actions CI/CD
 
 ## 📁 项目结构
@@ -53,27 +53,28 @@ npm run test:e2e:ui
 npm run test:e2e:install
 ```
 
-## ☁️ GitHub Pages 部署配置（推荐，完全免费！）
+## ☁️ 云服务器部署配置
 
-### 开启 GitHub Pages
-1. 进入 GitHub 仓库 → **Settings**
-2. 左侧菜单点击 **Pages**
-3. 在 **Build and deployment** 下：
-   - Source: 选择 **Deploy from a branch**
-   - Branch: 选择 **gh-pages** (第一次部署后会自动创建)
-4. 点击 **Save**
+### 配置 GitHub Secrets
+在 GitHub 仓库 → Settings → Secrets and variables → Actions → Secrets 中添加：
+
+| Secret 名称 | 说明 | 示例 |
+|------------|------|------|
+| SSH_PASSWORD | SSH 密码 | your_password |
+| REMOTE_HOST | 服务器 IP 地址 | 47.121.140.215 |
+| REMOTE_USER | SSH 用户名 | root |
+| REMOTE_PORT | SSH 端口 | 22 |
+| REMOTE_TARGET | 服务器部署路径 | /var/www/html |
+
+### 你的服务器信息（已配置）
+- IP: 47.121.140.215
+- 用户: root
+- 部署路径: /var/www/html
 
 ### 自动部署流程
 - 每次 `git push` 到 main 分支
 - GitHub Actions 自动运行测试
-- 测试通过后自动部署到 GitHub Pages
-- 访问地址: `https://你的用户名.github.io/仓库名/`
-
-### GitHub Pages 优势
-- ✅ 完全免费
-- ✅ 无需绑定银行卡
-- ✅ 自动 SSL 证书
-- ✅ GitHub Actions 自动部署
+- 测试通过后自动部署到云服务器
 
 ## 📋 Git 常用命令
 ```bash
