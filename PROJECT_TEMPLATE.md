@@ -6,7 +6,7 @@
 - ✅ Git & GitHub 版本控制
 - ✅ Playwright E2E 自动化测试
 - ✅ 单元测试
-- ✅ Vercel 自动部署
+- ✅ Render 自动部署
 - ✅ GitHub Actions CI/CD
 
 ## 📁 项目结构
@@ -15,7 +15,7 @@
 ├── index.html              # 主页面
 ├── package.json            # 项目配置
 ├── playwright.config.js    # Playwright 配置
-├── vercel.json            # Vercel 部署配置
+├── render.yaml            # Render 部署配置
 ├── .gitignore           # Git 忽略文件
 ├── .github/
 │   └── workflows/
@@ -54,21 +54,27 @@ npm run test:e2e:ui
 npm run test:e2e:install
 ```
 
-## ☁️ Vercel 部署配置
+## ☁️ Render 部署配置（推荐，最简单！）
 
-### 方法一：Vercel 自动部署（推荐，最简单！）
-1. 访问 https://vercel.com
+### 自动部署步骤
+1. 访问 https://render.com
 2. 用 GitHub 账号登录
-3. 点击 "Add New" → "Project"
+3. 点击 **"New +" → "Static Site"**
 4. 选择你的 GitHub 仓库
-5. 点击 "Deploy"
-6. 完成！以后每次 push 都会自动部署
+5. 配置（通常用默认值即可）：
+   - Name: 你的项目名称
+   - Branch: main
+   - Build Command: 留空
+   - Publish directory: `./`
+6. 点击 **"Create Static Site"**
+7. 完成！以后每次 push 都会自动部署
 
-### 方法二：GitHub Actions 部署
-如果想用 GitHub Actions 部署，需要在 GitHub 仓库设置 Secrets：
-- `VERCEL_TOKEN`: 你的 Vercel Token
-- `ORG_ID`: 你的 Vercel 组织 ID
-- `PROJECT_ID`: 你的 Vercel 项目 ID
+### Render 的优势
+- ✅ 完全免费（基础版）
+- ✅ 自动 SSL 证书
+- ✅ 全球 CDN
+- ✅ 自动部署，无需配置
+- ✅ 支持全栈项目（前端+后端+数据库）
 
 ## 📋 Git 常用命令
 ```bash
