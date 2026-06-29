@@ -18,21 +18,45 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '20'
+          cache: 'npm'
           
-      - name: 运行测试
-        run: npm test
+      - name: 安装依赖
+        run: npm ci
         
-  deploy:
+      - name: 安装 Playwright 浏览器
+        run: npx playwright install --with-deps chromium
+        
+      - name: 运行单元测试
+        run: npm run test:unit
+        
+      - name: 运行 E2E 测试
+        run: npm run test:e2e
+        
+      - name: 上传测试报告
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: playwright-report
+          path: playwright-report/
+          retention-days: 30
+
+  deploy-vercel:
     runs-on: ubuntu-latest
     needs: test
     if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master'
+    environment:
+      name: Vercel Production
+      url: ${{ steps.deploy.outputs.url }}
     
     steps:
       - name: 检出代码
         uses: actions/checkout@v4
         
-      - name: 部署到 GitHub Pages
-        uses: peaceiris/actions-gh-pages@v4
+      - name: 部署到 Vercel
+        uses: amondnet/vercel-action@v25
+        id: deploy
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./
+          vercel-token: ${{ secrets.VERCEL_TOKEN }}
+          vercel-org-id: ${{ secrets.ORG_ID }}
+          vercel-project-id: ${{ secrets.PROJECT_ID }}
+          vercel-args: '--prod'

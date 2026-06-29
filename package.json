@@ -4,14 +4,24 @@
   "description": "用于测试 Git、GitHub、自动化测试和自动化部署的项目",
   "main": "index.html",
   "scripts": {
+    "dev": "python -m http.server 8000",
     "start": "python -m http.server 8000",
-    "test": "node tests/simple-test.js"
+    "test": "npm run test:unit && npm run test:e2e",
+    "test:unit": "node tests/unit.test.js",
+    "test:e2e": "playwright test",
+    "test:e2e:ui": "playwright test --ui",
+    "test:e2e:install": "playwright install"
   },
   "keywords": [
     "git",
     "github",
-    "ci-cd"
+    "ci-cd",
+    "playwright",
+    "vercel"
   ],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "@playwright/test": "^1.40.0"
+  }
 }
