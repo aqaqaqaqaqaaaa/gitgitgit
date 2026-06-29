@@ -1,0 +1,17 @@
+{
+  "name": "git-github-demo",
+  "version": "1.0.0",
+  "description": "用于测试 Git、GitHub、自动化测试和自动化部署的项目",
+  "main": "index.html",
+  "scripts": {
+    "start": "python -m http.server 8000",
+    "test": "node tests/simple-test.js"
+  },
+  "keywords": [
+    "git",
+    "github",
+    "ci-cd"
+  ],
+  "author": "",
+  "license": "ISC"
+}

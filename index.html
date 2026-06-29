@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Git & GitHub 自动化测试项目</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .container {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            max-width: 800px;
+            width: 100%;
+        }
+        
+        h1 {
+            color: #333;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+        
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+        }
+        
+        .feature-list {
+            display: grid;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+        
+        .feature-item {
+            background: #f5f5f5;
+            padding: 15px;
+            border-radius: 10px;
+            border-left: 4px solid #667eea;
+        }
+        
+        .feature-item strong {
+            color: #667eea;
+        }
+        
+        .status {
+            background: #e8f5e9;
+            border: 1px solid #81c784;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        
+        .status.success {
+            background: #e8f5e9;
+            border-color: #81c784;
+            color: #2e7d32;
+        }
+        
+        .status.pending {
+            background: #fff3e0;
+            border-color: #ffb74d;
+            color: #ef6c00;
+        }
+        
+        .counter {
+            text-align: center;
+            font-size: 48px;
+            font-weight: bold;
+            color: #667eea;
+            margin: 20px 0;
+        }
+        
+        button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 16px;
+            border-radius: 30px;
+            cursor: pointer;
+            display: block;
+            margin: 0 auto;
+            transition: transform 0.2s;
+        }
+        
+        button:hover {
+            transform: scale(1.05);
+        }
+        
+        button:active {
+            transform: scale(0.98);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🚀 Git & GitHub 自动化项目</h1>
+        <p class="subtitle">用于测试 Git、GitHub、自动化测试和自动化部署流程</p>
+        
+        <div class="status success" id="status">
+            ✅ 项目运行正常
+        </div>
+        
+        <div class="feature-list">
+            <div class="feature-item">
+                <strong>🔄 Git 版本控制</strong> - 提交代码、分支管理、版本回滚
+            </div>
+            <div class="feature-item">
+                <strong>🌐 GitHub</strong> - 远程仓库托管、Pull Request
+            </div>
+            <div class="feature-item">
+                <strong>🧪 自动化测试</strong> - 代码提交时自动运行测试
+            </div>
+            <div class="feature-item">
+                <strong>📦 自动化部署</strong> - 测试通过后自动部署
+            </div>
+        </div>
+        
+        <div class="counter" id="counter">0</div>
+        <button onclick="incrementCounter()">点击计数</button>
+    </div>
+
+    <script>
+        let count = 0;
+        const counterElement = document.getElementById('counter');
+        
+        function incrementCounter() {
+            count++;
+            counterElement.textContent = count;
+        }
+        
+        function init() {
+            const savedCount = localStorage.getItem('counter');
+            if (savedCount) {
+                count = parseInt(savedCount);
+                counterElement.textContent = count;
+            }
+        }
+        
+        function saveCount() {
+            localStorage.setItem('counter', count.toString());
+        }
+        
+        setInterval(saveCount, 1000);
+        init();
+    </script>
+</body>
+</html>
