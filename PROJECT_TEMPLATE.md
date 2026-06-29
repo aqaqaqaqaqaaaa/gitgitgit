@@ -6,7 +6,7 @@
 - ✅ Git & GitHub 版本控制
 - ✅ Playwright E2E 自动化测试
 - ✅ 单元测试
-- ✅ Render 自动部署
+- ✅ GitHub Pages 自动部署
 - ✅ GitHub Actions CI/CD
 
 ## 📁 项目结构
@@ -15,7 +15,6 @@
 ├── index.html              # 主页面
 ├── package.json            # 项目配置
 ├── playwright.config.js    # Playwright 配置
-├── render.yaml            # Render 部署配置
 ├── .gitignore           # Git 忽略文件
 ├── .github/
 │   └── workflows/
@@ -54,27 +53,27 @@ npm run test:e2e:ui
 npm run test:e2e:install
 ```
 
-## ☁️ Render 部署配置（推荐，最简单！）
+## ☁️ GitHub Pages 部署配置（推荐，完全免费！）
 
-### 自动部署步骤
-1. 访问 https://render.com
-2. 用 GitHub 账号登录
-3. 点击 **"New +" → "Static Site"**
-4. 选择你的 GitHub 仓库
-5. 配置（通常用默认值即可）：
-   - Name: 你的项目名称
-   - Branch: main
-   - Build Command: 留空
-   - Publish directory: `./`
-6. 点击 **"Create Static Site"**
-7. 完成！以后每次 push 都会自动部署
+### 开启 GitHub Pages
+1. 进入 GitHub 仓库 → **Settings**
+2. 左侧菜单点击 **Pages**
+3. 在 **Build and deployment** 下：
+   - Source: 选择 **Deploy from a branch**
+   - Branch: 选择 **gh-pages** (第一次部署后会自动创建)
+4. 点击 **Save**
 
-### Render 的优势
-- ✅ 完全免费（基础版）
+### 自动部署流程
+- 每次 `git push` 到 main 分支
+- GitHub Actions 自动运行测试
+- 测试通过后自动部署到 GitHub Pages
+- 访问地址: `https://你的用户名.github.io/仓库名/`
+
+### GitHub Pages 优势
+- ✅ 完全免费
+- ✅ 无需绑定银行卡
 - ✅ 自动 SSL 证书
-- ✅ 全球 CDN
-- ✅ 自动部署，无需配置
-- ✅ 支持全栈项目（前端+后端+数据库）
+- ✅ GitHub Actions 自动部署
 
 ## 📋 Git 常用命令
 ```bash
